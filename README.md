@@ -17,4 +17,4 @@ checking from dev branch
 
 checking form copy-of-dev branch
 checking form copy-of-dev branch again
-checking from sperate branch
+checking from sperate branch 1
