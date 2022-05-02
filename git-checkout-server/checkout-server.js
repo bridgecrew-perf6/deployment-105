@@ -14,6 +14,7 @@ const server = http.createServer(function (req, res) {
     if (req.url === '/123456') {
         //checkout the git repo
         execSync('git pull');
+        console.log('has run git pull');
     }
 });
 //Start the server
