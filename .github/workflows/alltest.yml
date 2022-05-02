@@ -99,5 +99,3 @@ jobs:
     - run: pm2 start backend/index.js
       # run the unit tests
     - run: npm run test
-
-  
