@@ -1,3 +1,7 @@
+database/products.db
+
+*.vscode/settings.json
+
 # Logs
 logs
 *.log
@@ -102,3 +106,5 @@ dist
 
 # TernJS port file
 .tern-port
+.DS_Store
+.vscode/settings.json
