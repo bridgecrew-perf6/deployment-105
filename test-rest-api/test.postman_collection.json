@@ -1,0 +1,819 @@
+{
+	"info": {
+		"_postman_id": "a0a2f010-4948-43e8-a43f-edf9dd3526a0",
+		"name": "Grocery-shop-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Visitor get all products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check the first product id\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].id).to.eql(101);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check the first product name\", function () {\r",
+							"    let jsonData2 = pm.response.json();\r",
+							"    pm.expect(jsonData2[0].name).to.eql(\"Oliv oil \");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/products"
+			},
+			"response": []
+		},
+		{
+			"name": "Visitor get login info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"_error\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check if the response get error messege\", function(){\r",
+							"    var responsemsg = pm.response.json();\r",
+							"    pm.expect(responsemsg._error).to.eql('Not logged in');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Visitor to create account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});  \r",
+							"    // remember the user id\r",
+							"    //console.log(\"JO\", pm.response.json())\r",
+							"    pm.environment.set('currentUserId', pm.response.json().lastInsertRowid)\r",
+							"\r",
+							"\r",
+							"let server_response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check if the database has 1 change\", function (){\r",
+							"    pm.expect(server_response.changes).to.equal(1)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"email\", 's' + Math.random() + '@gmail.com');\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"sohan\",\r\n    \"lastName\": \"Islam\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"12345678\",\r\n    \"userRole\": \"user\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Visitor to login to account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    pm.expect(response.email).to.equal(pm.environment.get('email'));\r",
+							"\r",
+							"   // pm.response.json().email.toEqual(pm.environment.get('email'));\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"{{email}}\",\r\n\"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "User to update info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lastName\": \"ridoy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/users/{{currentUserId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "User to logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"email\": \"sohan@sohan.com\",\r\n   \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin to get tables and views",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/tablesAndViews"
+			},
+			"response": []
+		},
+		{
+			"name": "Get users list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin to add a product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// get the response data\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check that the database reports 1 change\", function(){\r",
+							"    pm.expect(response.changes).to.equal(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that we get lastInsertRowid as a number\", function(){\r",
+							"    pm.expect(response.lastInsertRowid).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"// Add the id to the person in our mock data\r",
+							"mockDataProducts[counter].id = response.lastInsertRowid;\r",
+							"// and resave the mock data as an environment variable\r",
+							"pm.environment.set('mockDataProducts', JSON.stringify(mockDataProducts));\r",
+							"\r",
+							"// Add one to the counter and save as environment variable\r",
+							"counter++;\r",
+							"pm.environment.set('counter', counter);\r",
+							"\r",
+							"// If there exist a peson in mockDataProducts\r",
+							"// with an index corresponding to the counter\r",
+							"// then run this request again\r",
+							"if(mockDataProducts[counter]){\r",
+							"  postman.setNextRequest(\"Admin to add a product\");\r",
+							"}\r",
+							"\r",
+							"else {\r",
+							"   // we are done reset the counter to 0 \r",
+							"   // the help the script in the next request\r",
+							"   pm.environment.set('counter', '0');\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let testData = [{\r",
+							"  \"description\": \"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\",\r",
+							"  \"name\": \"Fond - Chocolate\",\r",
+							"  \"price\": 146,\r",
+							"  \"image\": \"http://dummyimage.com/211x100.png/cc0000/ffffff\"\r",
+							"}, {\r",
+							"  \"description\": \"Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\",\r",
+							"  \"name\": \"Wine - Chardonnay South\",\r",
+							"  \"price\": 132,\r",
+							"  \"image\": \"http://dummyimage.com/163x100.png/dddddd/000000\"\r",
+							"}, {\r",
+							"  \"description\": \"Phasellus in felis. Donec semper sapien a libero. Nam dui.\",\r",
+							"  \"name\": \"Carbonated Water - Blackcherry\",\r",
+							"  \"price\": 43,\r",
+							"  \"image\": \"http://dummyimage.com/216x100.png/5fa2dd/ffffff\"\r",
+							"}, {\r",
+							"  \"description\": \"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\",\r",
+							"  \"name\": \"Peach - Fresh\",\r",
+							"  \"price\": 215,\r",
+							"  \"image\": \"http://dummyimage.com/217x100.png/cc0000/ffffff\"\r",
+							"}, {\r",
+							"  \"description\": \"In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.\",\r",
+							"  \"name\": \"Oven Mitts - 15 Inch\",\r",
+							"  \"price\": 58,\r",
+							"  \"image\": \"http://dummyimage.com/124x100.png/5fa2dd/ffffff\"\r",
+							"}];\r",
+							"\r",
+							"\r",
+							"// Add the test data to an environment variable\r",
+							"// if that environment varaible does not exist\r",
+							"if(!pm.environment.get(\"mockDataProducts\")){\r",
+							"    // since environment variables can only be strings\r",
+							"    // we need to JSON encode the test data too...\r",
+							"    pm.environment.set(\"mockDataProducts\",JSON.stringify(testData));\r",
+							"    pm.environment.set(\"counter\", \"0\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// Get description, name, price and image as separate\r",
+							"// variables from the person at index counter in\r",
+							"// the mockDataPersons array \r",
+							"let {description, name, price, image}= mockDataProducts[counter];\r",
+							"pm.environment.set('description', description);\r",
+							"pm.environment.set('name', name);\r",
+							"pm.environment.set('price', price);\r",
+							"pm.environment.set('image', image);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"{{description}}\",\r\n    \"name\": \"{{name}}\",\r\n    \"price\": \"{{price}}\",\r\n    \"image\": \"{{image}}\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/products"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the added products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// The response from the db\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"// The person data we expect in the response\r",
+							"let expectedProduct = mockDataProducts[counter];\r",
+							"\r",
+							"pm.test(\"Check that product data was correclty saved in the db, by reading it and comparing it to the original mockdata\", function(){\r",
+							"    pm.expect(response).to.deep.equal(expectedProduct);\r",
+							"} );\r",
+							"\r",
+							"// Add one to the counter and save as environment variable\r",
+							"counter++;\r",
+							"pm.environment.set('counter', counter);\r",
+							"\r",
+							"// If there exist a peson in mockDataPersons\r",
+							"// with an index corresponding to the counter\r",
+							"// then run this request again\r",
+							"if(mockDataProducts[counter]){\r",
+							"  postman.setNextRequest(\"Get the added products\");\r",
+							"}\r",
+							"\r",
+							"else {\r",
+							"   // we are done reset the counter to 0 \r",
+							"   // the help the script in the next request\r",
+							"   pm.environment.set('counter', '0');\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// Get the id of the current mock data product\r",
+							"let {id} = mockDataProducts[counter];\r",
+							"// Set the id as an environment variable\r",
+							"pm.environment.set('id', id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/products/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin to update added products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// get the response data\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check that the database reports 1 change\", function(){\r",
+							"    pm.expect(response.changes).to.equal(1);\r",
+							"});\r",
+							"\r",
+							"// Add one to the counter and save as environment variable\r",
+							"counter++;\r",
+							"pm.environment.set('counter', counter);\r",
+							"\r",
+							"// If there exist a peson in mockDataProducts\r",
+							"// with an index corresponding to the counter\r",
+							"// then run this request again\r",
+							"if(mockDataProducts[counter]){\r",
+							"  postman.setNextRequest(\"Admin to update added products\");\r",
+							"}\r",
+							"\r",
+							"else {\r",
+							"   // we are done reset the counter to 0 \r",
+							"   // the help the script in the next request\r",
+							"   pm.environment.set('counter', '0');\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// Add an s at the end of the properties firstName, lastName and email\r",
+							"mockDataProducts[counter].description += 's';\r",
+							"mockDataProducts[counter].name += 's';\r",
+							"mockDataProducts[counter].price += 1;\r",
+							"\r",
+							"// Save the mockDataProducts back to our environement variable\r",
+							"pm.environment.set('mockDataProducts', JSON.stringify(mockDataProducts));\r",
+							"\r",
+							"// Get the id of the current mock data product\r",
+							"let {id} = mockDataProducts[counter];\r",
+							"// Set the id as an environment variable\r",
+							"pm.environment.set('id', id);\r",
+							"\r",
+							"let {description, name, price}= mockDataProducts[counter];\r",
+							"pm.environment.set('description', description);\r",
+							"pm.environment.set('name', name);\r",
+							"pm.environment.set('price', price);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"{{description}}\",\r\n    \"name\": \"{{name}}\",\r\n    \"price\": \"{{price}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/products/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the added products again",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// The response from the db\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"// The person data we expect in the response\r",
+							"let expectedProduct = mockDataProducts[counter];\r",
+							"\r",
+							"pm.test(\"Check that product data was correclty saved in the db, by reading it and comparing it to the original mockdata\", function(){\r",
+							"    pm.expect(response).to.deep.equal(expectedProduct);\r",
+							"} );\r",
+							"\r",
+							"// Add one to the counter and save as environment variable\r",
+							"counter++;\r",
+							"pm.environment.set('counter', counter);\r",
+							"\r",
+							"// If there exist a peson in mockDataPersons\r",
+							"// with an index corresponding to the counter\r",
+							"// then run this request again\r",
+							"if(mockDataProducts[counter]){\r",
+							"  postman.setNextRequest(\"Get the added products again\");\r",
+							"}\r",
+							"\r",
+							"else {\r",
+							"   // we are done reset the counter to 0 \r",
+							"   // the help the script in the next request\r",
+							"   pm.environment.set('counter', '0');\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// Get the id of the current mock data person\r",
+							"let {id} = mockDataProducts[counter];\r",
+							"// Set the id as an environment variable\r",
+							"pm.environment.set('id', id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/products/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin to delete added products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// get the response data\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check that the database reports 1 change\", function(){\r",
+							"    pm.expect(response.changes).to.equal(1);\r",
+							"});\r",
+							"\r",
+							"// Add one to the counter and save as environment variable\r",
+							"counter++;\r",
+							"pm.environment.set('counter', counter);\r",
+							"\r",
+							"// If there exist a product in mockDataProducts\r",
+							"// with an index corresponding to the counter\r",
+							"// then run this request again\r",
+							"if(mockDataProducts[counter]){\r",
+							"  postman.setNextRequest(\"Admin to delete added products\");\r",
+							"}\r",
+							"\r",
+							"else {\r",
+							"   // we are done reset the counter to 0 \r",
+							"   // the help the script in the next request\r",
+							"   pm.environment.set('counter', '0');\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// \"Unpack\" environment variables into normal local variables\r",
+							"let mockDataProducts = JSON.parse(pm.environment.get(\"mockDataProducts\"));\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"// Get the id of the current mock data product\r",
+							"let {id} = mockDataProducts[counter];\r",
+							"// Set the id as an environment variable\r",
+							"pm.environment.set('id', id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/products/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin to delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/users/{{currentUserId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin to logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/login"
+			},
+			"response": []
+		}
+	]
+}

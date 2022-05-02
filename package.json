@@ -1,0 +1,32 @@
+{
+    "name": "grocery-shop",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "node backend/index",
+        "test": "jest",
+        "wdio": "wdio run wdio.conf.js",
+        "api-test": "newman run test-rest-api/test.postman_collection.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@wdio/cli": "^7.19.3",
+        "@wdio/cucumber-framework": "^7.19.3",
+        "@wdio/local-runner": "^7.19.3",
+        "@wdio/spec-reporter": "^7.19.1",
+        "chromedriver": "^100.0.0",
+        "dotenv": "^16.0.0",
+        "jest": "^27.5.1",
+        "wdio-chromedriver-service": "^7.3.2",
+        "jsdom": "^19.0.0"
+    },
+    "dependencies": {
+        "better-express-store": "^1.0.4",
+        "better-sqlite3": "^7.5.0",
+        "express": "^4.17.3",
+        "express-session": "^1.17.2"
+    }
+}
