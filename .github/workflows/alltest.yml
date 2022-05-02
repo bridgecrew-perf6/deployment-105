@@ -1,0 +1,103 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [copy-of-main]
+  pull_request:
+    branches: [copy-of-main]
+
+jobs:
+  api-tests:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+
+    # run the npm build command (not used in our project)
+    - run: npm run build --if-present
+
+      # install newman globally so we can run
+      # postman collections
+    - run: npm install -g newman
+      # install pm2 so we can run our node.js
+      # based backend without blocking the terminal
+    - run: npm install -g pm2
+      # copy db-template to real db
+    - run: cp database/products-template.db database/products.db
+      # start up our backend
+    - run: pm2 start backend/index.js
+      # run our api tests
+    - run: newman run test-rest-api/test.postman_collection.json
+
+  wdio-tests:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+      # build our react project to the dist folder
+    - run: npm run build --if-present
+      # install pm2 so we can run our node.js
+      # based backend without blocking the terminal
+    - run: npm install -g pm2
+      # copy db-template to real db
+    - run: cp database/products-template.db database/products.db
+      # start up our backend
+    - run: pm2 start backend/index.js
+      # install Chrome (latest stable version)
+    - run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - run: sudo apt install ./google-chrome-stable_current_amd64.deb
+      # run the WebDriverIO tests
+    - run: HEADLESS_CHROME=yes WDIO_LOG_LEVEL=warn npm run wdio
+
+  jest-tests:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+ 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+      # build our react project to the dist folder
+    - run: npm run build --if-present
+      # install pm2 so we can run our node.js
+      # based backend without blocking the terminal
+    - run: npm install -g pm2
+      # copy db-template to real db
+      #- run: cp database/products-template.db database/products.db
+      # start up our backend because the methods
+      # we are unit testing calls the backend
+    - run: pm2 start backend/index.js
+      # run the unit tests
+    - run: npm run test
+
+  
