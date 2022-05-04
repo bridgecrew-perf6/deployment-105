@@ -18,10 +18,10 @@ const dbPath = path.join(__dirname, '../database', 'products.db');
 function checkout() {
     //Run the git checkout command
     execSync('git pull'); // pull the latest changes from the remote repo
-    //execSync('npm install'); // install new npm modules mentioned in package.json
+    execSync('npm install'); // install new npm modules mentioned in package.json
     execSync('rm ' + dbPath); // remove the old db file
     execSync('cp ' + dbTemplatePath + ' ' + dbPath); // copy the template db file to the new db file
-    //execSync('pm2 restart main-app');//restart our main-app
+    execSync('pm2 restart main-app');//restart our main-app
     console.log('Pulled, copied db and restarted the sever');
 }
 
