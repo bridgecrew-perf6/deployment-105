@@ -1,6 +1,5 @@
-database/products.db
-
 .vscode/settings.json
+database/products.db
 
 # Logs
 logs
