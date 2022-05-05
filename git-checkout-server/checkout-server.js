@@ -8,8 +8,8 @@ const { execSync } = require('child_process');
 const path = require('path');
 
 // Path to db-template
-const dbTemplatePath = path.join(__dirname, '../database', 'products-template.db');
-const dbPath = path.join(__dirname, '../database', 'products.db');
+const dbTemplatePath = path.join(__dirname, 'database', 'products-template.db');
+const dbPath = path.join(__dirname, 'database', 'products.db');
 
 
 
