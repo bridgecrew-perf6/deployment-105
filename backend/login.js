@@ -49,4 +49,4 @@ module.exports = function (app, db) {
     res.json({ success: 'logged out' });
   });
 
-};
+}
