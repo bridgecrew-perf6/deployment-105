@@ -8,8 +8,8 @@ const { execSync } = require('child_process');
 const path = require('path');
 
 // Path to db-template
-const dbTemplatePath = path.join(__dirname, 'database', 'products-template.db');
-const dbPath = path.join(__dirname, 'database', 'products.db');
+const dbTemplatePath = path.join(__dirname, '../database', 'products-template.db');
+const dbPath = path.join(__dirname, '../database', 'products.db');
 
 
 
@@ -18,7 +18,7 @@ function checkout() {
     execSync('git stash'); // remove changed files if any
     execSync('git pull');
     execSync('npm install'); // install new npm modules mentioned in package.json
-    execSync('pm2 stop  dev-main'); // stop dev server in case it locks the db file to remove
+    execSync('pm2 stop dev-main'); // stop dev server in case it locks the db file to remove
     execSync('rm ' + dbPath); // remove the database
     execSync('cp ' + dbTemplatePath + ' ' + dbPath); // copy dbTemplate to db
     //execSync('npm run build'); // build the dist folder that will be served
