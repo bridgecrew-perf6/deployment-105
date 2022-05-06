@@ -1,12 +1,12 @@
 const path = require('path');
 const betterSqlite3 = require('better-sqlite3');
-const db = betterSqlite3('./database/products.db');
+const db = betterSqlite3(path(__dirname, '../database/products.db'));
 const port = process.env.PORT || 3000;
 const express = require('express');
 
 const app = express();
 
-app.use(express.static('frontend'));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use(express.json({ limit: '100MB' }));
 
