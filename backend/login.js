@@ -11,7 +11,7 @@ module.exports = function (app, db) {
     resave: false,
     saveUninitialized: true,
     cookie: { secure: 'auto' },
-    store: store({ dbPath: path(__dirname, '../database/products.db') })
+    store: store({ dbPath: path.join(__dirname, '../database/products.db') })
   }));
 
   app.post('/api/login', (req, res) => {
