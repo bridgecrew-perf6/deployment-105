@@ -1,7 +1,11 @@
 const path = require('path');
 const betterSqlite3 = require('better-sqlite3');
 const db = betterSqlite3(path.join(__dirname, '../database/products.db'));
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
+if (!port) {
+  console.warn("You must provide a PORT number as process envioronment variable");
+  process.exit(1) // shut down
+}
 const express = require('express');
 
 const app = express();
