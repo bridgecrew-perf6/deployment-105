@@ -9,7 +9,6 @@
     },
     "users": {
       "post": true
-      
     }
   },
   "user": {
@@ -25,8 +24,6 @@
       "put": true,
       "delete": true
     }
-
-    
   },
   "admin": {
     "tablesAndViews": {
