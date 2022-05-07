@@ -100,7 +100,7 @@ jobs:
       # run the unit tests
     - run: npm run test
 
-  Onlie-Main:
+  Online-Main:
 
     # demand that the 3 test jobs succeed
     # before running go live
