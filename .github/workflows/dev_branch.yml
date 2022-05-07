@@ -36,7 +36,7 @@ jobs:
       # copy db-template to real db
     - run: cp database/products-template.db database/products.db
       # start up our backend
-    - run: pm2 start backend/index.js
+    - run: PORT=3000 pm2 start backend/index.js --name dev-main
       # run our api tests
     - run: newman run test-rest-api/test.postman_collection.json
 
