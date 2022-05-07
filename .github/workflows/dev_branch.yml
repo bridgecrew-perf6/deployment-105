@@ -36,7 +36,7 @@ jobs:
       # copy db-template to real db
     - run: cp database/products-template.db database/products.db
       # start up our backend
-    - run: PORT=3000 pm2 start backend/index.js --name dev-main
+    - run: PORT=3000 pm2 start backend/index.js --name dev-server
       # run our api tests
     - run: newman run test-rest-api/test.postman_collection.json
 
@@ -64,7 +64,7 @@ jobs:
       # copy db-template to real db
     - run: cp database/products-template.db database/products.db
       # start up our backend
-    - run: PORT=3000 pm2 start backend/index.js --name dev-main
+    - run: PORT=3000 pm2 start backend/index.js --name dev-server
       # install Chrome (latest stable version)
     - run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - run: sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -96,7 +96,7 @@ jobs:
       #- run: cp database/products-template.db database/products.db
       # start up our backend because the methods
       # we are unit testing calls the backend
-    - run: PORT=3000 pm2 start backend/index.js --name dev-main
+    - run: PORT=3000 pm2 start backend/index.js --name dev-server
       # run the unit tests
     - run: npm run test
 
