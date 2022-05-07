@@ -14,7 +14,7 @@ if (port == "9876") {
     pm2serverNameToRestart = "dev-server";
 }
 if (port == "9878") {
-    // we are expecting this to be the dev-checkout-server
+    // we are expecting this to be the main-checkout-server
     // so the name of the server we should restart should  be main-server
     pm2serverNameToRestart = "main-server";
 }
