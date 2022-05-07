@@ -96,11 +96,11 @@ jobs:
       #- run: cp database/products-template.db database/products.db
       # start up our backend because the methods
       # we are unit testing calls the backend
-    - run: pm2 start backend/index.js
+    - run: PORT=3000 pm2 start backend/index.js --name dev-main
       # run the unit tests
     - run: npm run test
 
-  go-online:
+  Online-Dev:
 
     # demand that the 3 test jobs succeed
     # before running go live
