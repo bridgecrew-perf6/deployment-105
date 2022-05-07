@@ -99,3 +99,20 @@ jobs:
     - run: pm2 start backend/index.js
       # run the unit tests
     - run: npm run test
+
+  go-online:
+
+    # demand that the 3 test jobs succeed
+    # before running go live
+    needs: [api-tests, wdio-tests, jest-tests]
+
+    # only run this job if the environment protection rules
+    # (a reviewers approves and we are on the dev branch)
+    # are fulfilled
+    #environment: "Dev server"
+
+    runs-on: ubuntu-latest
+    
+    steps:
+      ## call checkout server to checkout/pull our repo
+    - run: curl https://cid.jahedrahman.xyz/123456

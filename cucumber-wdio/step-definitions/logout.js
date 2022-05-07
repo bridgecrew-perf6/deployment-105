@@ -9,7 +9,7 @@ const pauseTime = 0;
 
 Then('I click the logout button', async () => {
     let logout_button = await browser.$('.navButtons .logout');
-    logout_button.click();
+    await logout_button.click();
     await browser.url('/');
 });
 

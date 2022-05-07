@@ -12,7 +12,13 @@ Given('that I can see the product list', async () => {
 
 When(/^I click on the buy button for "(.*)"$/, async (productName) => {
   // grab all divs that have the class productInList
-  let products = await $$('.productInList');
+  let products = [];
+  // since it can take a short while before the products are displayed
+  // the need to be fetched from the db first, wait for it to products on the page...
+  while (products.length === 0) {
+    products = await $$('.productInList');
+    await browser.pause(10);
+  }
   // create an empty variable called foundProduct
   let foundProduct;
   // loop through all products divs
