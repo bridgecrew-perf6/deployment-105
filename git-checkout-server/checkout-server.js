@@ -39,8 +39,10 @@ const dbPath = path.join(__dirname, '../database', 'products.db');
 
 //A  funcction that does all necessary git checkout, cleanup etc
 function checkout() {
-    execSync('git stash'); // remove changed files if any
-    execSync('git pull');
+    //Run the git checkout command
+    execSync('git stash'); // remove local changes (like i package.lock.json has changed automatically so have a clean repo)
+    execSync('git pull'); // pull the latest changes from the remote repo
+
     execSync('npm install'); // install new npm modules mentioned in package.json
     execSync('pm2 stop ' + pm2serverNameToRestart); // stop dev server in case it locks the db file to remove
     execSync('rm ' + dbPath); // remove the database

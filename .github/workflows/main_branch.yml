@@ -99,9 +99,7 @@ jobs:
     - run: PORT=4000 pm2 start backend/index.js --name main-server
       # run the unit tests
     - run: npm run test
-
   Online-Main:
-
     # demand that the 3 test jobs succeed
     # before running go live
     needs: [api-tests, wdio-tests, jest-tests]
