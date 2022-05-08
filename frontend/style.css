@@ -3,7 +3,7 @@
 
 body {
   margin: 0;
-  background-color: rgb(42, 135, 65);
+  background-color: rgb(234, 223, 241);
   font-family: 'Bitter';
 }
 
@@ -17,7 +17,7 @@ button,
 }
 
 header {
-  background-color: rgb(73, 201, 73);
+  background-color: rgb(196, 91, 161);
 }
 
 header h1 {
