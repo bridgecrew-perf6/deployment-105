@@ -115,4 +115,4 @@ jobs:
     
     steps:
       ## call checkout server to checkout/pull our repo
-    - run: curl https://dev-CS.jahedrahman.xyz/123456
+    - run: curl https://dev-CS.jahedrahman.xyz/${{secrets.DEPLOYMENT_KEY}}
