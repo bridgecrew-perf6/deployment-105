@@ -4,7 +4,7 @@ const { grabEl, grabEls } = require('../frontend/helpers');
 
 // Note replaceAll not working in Node 14 - a fairly new String method in JS
 // mock it if it does not exist
-String.prototype.replaceAll = String.prototype.replaceAll || function(x,y){
+String.prototype.replaceAll = String.prototype.replaceAll || function (x, y) {
   return this.split(x).join(y);
 }
 
@@ -18,7 +18,7 @@ describe('Test grabEl', () => {
 
     let content = grabEl('header').innerHTML.trim();
 
-    expect(content.replaceAll(' ', '')).toBe(`<h1>Our grocery shop</h1>
+    expect(content.replaceAll(' ', '')).toBe(`<h1>Dev grocery shop</h1>
     <div class="navButtons">
   <button class="showCart">Show cart</button>
   <button class="login">Login</button>
