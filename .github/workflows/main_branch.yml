@@ -115,4 +115,4 @@ jobs:
     
     steps:
       ## call checkout server to checkout/pull our repo
-    - run: curl https://cid.jahedrahman.xyz/123456
+    - run: curl https://main-CS.jahedrahman.xyz/123456
